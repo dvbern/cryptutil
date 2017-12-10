@@ -2,7 +2,7 @@ package ch.dvbern.lib.cryptutil.readers;
 
 import java.security.PublicKey;
 
-import ch.dvbern.lib.cryptutil.fixme.NonNull;
+import ch.dvbern.lib.cryptutil.annotations.NonNull;
 
 import static java.util.Objects.requireNonNull;
 

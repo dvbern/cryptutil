@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import javax.xml.bind.DatatypeConverter;
 
-import ch.dvbern.lib.cryptutil.fixme.NonNull;
+import ch.dvbern.lib.cryptutil.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 
 import static ch.dvbern.lib.cryptutil.TestingUtil.resourceURL;

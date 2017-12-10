@@ -10,8 +10,8 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
-import ch.dvbern.lib.cryptutil.fixme.NonNull;
-import ch.dvbern.lib.cryptutil.fixme.Nullable;
+import ch.dvbern.lib.cryptutil.annotations.NonNull;
+import ch.dvbern.lib.cryptutil.annotations.Nullable;
 
 import static ch.dvbern.lib.cryptutil.Util.processFully;
 import static java.util.Objects.requireNonNull;

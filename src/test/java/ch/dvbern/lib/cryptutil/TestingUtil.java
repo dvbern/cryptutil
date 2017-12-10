@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 
-import ch.dvbern.lib.cryptutil.fixme.NonNull;
+import ch.dvbern.lib.cryptutil.annotations.NonNull;
 
 import static ch.dvbern.lib.cryptutil.Util.processFully;
 import static java.util.Objects.requireNonNull;

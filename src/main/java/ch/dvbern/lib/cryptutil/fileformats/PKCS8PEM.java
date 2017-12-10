@@ -28,8 +28,8 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import ch.dvbern.lib.cryptutil.fixme.NonNull;
-import ch.dvbern.lib.cryptutil.fixme.Nullable;
+import ch.dvbern.lib.cryptutil.annotations.NonNull;
+import ch.dvbern.lib.cryptutil.annotations.Nullable;
 
 import static java.util.Objects.requireNonNull;
 

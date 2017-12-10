@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import ch.dvbern.lib.cryptutil.fileformats.PKCS8PEM;
-import ch.dvbern.lib.cryptutil.fixme.NonNull;
+import ch.dvbern.lib.cryptutil.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 
 import static ch.dvbern.lib.cryptutil.TestingUtil.readFully;
