@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    options { buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '1')) }
+    options {
+    	buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '1'))
+    }
     stages {
-
-
         stage ('Build') {
         	steps {
 				withMaven(
