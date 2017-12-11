@@ -27,14 +27,14 @@ Currently implemented utilities:
 
 ## HowTo
 
-### Create a cryptographically strong digest/checksum using [DigestEngine](src/main/java/ch/dvbern/cryptutil/DigestEngine.java)
+### Create a cryptographically strong digest/checksum using [DigestEngine](src/main/java/ch/dvbern/lib/cryptutil/DigestEngine.java)
 ```java
 byte[] digestBytes = new DigestEngine().digestSHA256(is, null);
 // openssl compatible: hex-encoding, lowercase
 String hexText = DatatypeConverter.printHexBinary(digestBytes).toLowerCase(Locale.US);
 ```
 
-### Read Keys/Certificates stored in a PKCS#8 PEM file using [PKCS8PEM](src/main/java/ch/dvbern/cryptutil/fileformats/PKCS8PEM.java)
+### Read Keys/Certificates stored in a PKCS#8 PEM file using [PKCS8PEM] (src/main/java/ch/dvbern/lib/cryptutil/fileformats/PKCS8PEM.java)
 ```java
 // read public key/certificate
 RSAPublicKey publicKey = new PKCS8PEM().readCertFromPKCS8EncodedPEM(privateKeyURL.openStream());
@@ -43,7 +43,7 @@ RSAPublicKey publicKey = new PKCS8PEM().readCertFromPKCS8EncodedPEM(privateKeyUR
 RSAPrivateKey privateKey = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(privateKeyURL.openStream(), "asdffdsa");
 ```
 
-### Create a cryptographically strong file signature on a digest and verify it using [SignatureEngine](src/main/java/ch/dvbern/cryptutil/SignatureEngine.java)
+### Create a cryptographically strong file signature on a digest and verify it using [SignatureEngine](src/main/java/ch/dvbern/lib/cryptutil/SignatureEngine.java)
 ```java
 // read private key
 RSAPrivateKey privateKey = ... see example above
@@ -90,7 +90,7 @@ openssl rsa -in meykey.pem -pubout > mykey.pub
 ```
 
 ### Generate signed digests and verify them using [OpenSSL]
-Taken from: https://stackoverflow.com/questions/5140425/openssl-command-line-to-verify-the-signature
+Taken from: [Stackoverflow: openssl-command-line-to-verify-the-signature]
 
 Generated a RSA signed SHA256 digest using our private key:
 ```
@@ -104,7 +104,7 @@ openssl dgst -sha256 -verify mykey.pub -signature foo.txt.sha256.signed foo.txt
 ```
 
 # Built With
-* [Maven](https://maven.apache.org/) - Dependency Management
+* [Maven] - Dependency Management
 * Love :)
 
 # Contributing Guidelines
@@ -114,11 +114,11 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for the process for submitting pu
 # Code of Conduct
 
 One healthy social atmospehere is very important to us, wherefore we rate our Code of Conduct high. For details check
- the file <CODE_OF_CONDUCT.md>
+ the file [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
 # Authors
 
-* **DV Bern AG**, Christoph Linder - *Initial work* - [dvbern](https://github.com/dvbern)
+* **DV Bern AG**, Christoph Linder - *Initial work* - [dvbern]
 
 See also the list of [contributors](https://github.com/dvbern/cryptutil/contributors) who participated in this project.
 
@@ -128,5 +128,8 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LIC
 
 
 
-<Link-Reference>
+# References
+[dvbern]: https://github.com/dvbern
 [OpenSSL]: https://www.openssl.org/
+[Maven]: https://maven.apache.org/
+[Stackoverflow: openssl-command-line-to-verify-the-signature]: https://stackoverflow.com/questions/5140425/openssl-command-line-to-verify-the-signature
