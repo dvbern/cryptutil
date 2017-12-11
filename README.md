@@ -34,7 +34,7 @@ byte[] digestBytes = new DigestEngine().digestSHA256(is, null);
 String hexText = DatatypeConverter.printHexBinary(digestBytes).toLowerCase(Locale.US);
 ```
 
-### Read Keys/Certificates stored in a PKCS#8 PEM file using [PKCS8PEM] (src/main/java/ch/dvbern/lib/cryptutil/fileformats/PKCS8PEM.java)
+### Read Keys/Certificates stored in a PKCS#8 PEM file using [PKCS8PEM](src/main/java/ch/dvbern/lib/cryptutil/fileformats/PKCS8PEM.java)
 ```java
 // read public key/certificate
 RSAPublicKey publicKey = new PKCS8PEM().readCertFromPKCS8EncodedPEM(privateKeyURL.openStream());
