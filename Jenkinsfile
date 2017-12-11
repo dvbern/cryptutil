@@ -3,10 +3,14 @@ pipeline {
     options {
     	buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '1'))
     }
+    tools {
+        maven 'Maven_3.5.0'
+        jdk 'JDK_1.8_152'
+    }
     stages {
         stage ('Build') {
         	steps {
-				withMaven(
+        		withMaven(
 					maven: 'Maven_3.5.0',
 					jdk: 'JDK_1.8_152'
 				) {

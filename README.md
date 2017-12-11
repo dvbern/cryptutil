@@ -103,6 +103,9 @@ openssl dgst -sha256 -verify mykey.pub -signature foo.txt.sha256.signed foo.txt
 => Verified OK
 ```
 
+# Release
+See comments in [pom.xml](pom.xml) for more details.
+
 # Built With
 * [Maven] - Dependency Management
 * Love :)
