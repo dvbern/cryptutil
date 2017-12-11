@@ -8,6 +8,11 @@
 		<version>1.0.4</version>
 	</parent>
 
+	<!-- HowTo: Release -->
+	<!-- checkout develop -->
+	<!-- mvn jgitflow:release-start jgitflow:release-start -->
+	<!-- build/wait for master build -->
+
 	<groupId>ch.dvbern.oss.cryptutil</groupId>
 	<artifactId>cryptutil</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
