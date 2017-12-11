@@ -17,7 +17,7 @@ Currently implemented utilities:
 
 ## Maven-Dependency
 
-```
+```xml
 <dependency>
 	<groupId>ch.dvbern.oss.cryptutil</groupId>
 	<artifactId>cryptutil</artifactId>
@@ -26,19 +26,47 @@ Currently implemented utilities:
 ```
 
 ## HowTo
-### Read Keys/Certificates stored in a PKCS#8 PEM file
-```
-FIXME
+
+### Create a cryptographically strong digest/checksum using [DigestEngine](src/main/java/ch/dvbern/cryptutil/DigestEngine.java)
+```java
+byte[] digestBytes = new DigestEngine().digestSHA256(is, null);
+// openssl compatible: hex-encoding, lowercase
+String hexText = DatatypeConverter.printHexBinary(digestBytes).toLowerCase(Locale.US);
 ```
 
-### Create a cryptographically strong digest/checksum
-```
-FIXME
+### Read Keys/Certificates stored in a PKCS#8 PEM file using [PKCS8PEM](src/main/java/ch/dvbern/cryptutil/fileformats/PKCS8PEM.java)
+```java
+// read public key/certificate
+RSAPublicKey publicKey = new PKCS8PEM().readCertFromPKCS8EncodedPEM(privateKeyURL.openStream());
+
+// read password protected private key
+RSAPrivateKey privateKey = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(privateKeyURL.openStream(), "asdffdsa");
 ```
 
-### Create a cryptographically strong file signature on a digest
+### Create a cryptographically strong file signature on a digest and verify it using [SignatureEngine](src/main/java/ch/dvbern/cryptutil/SignatureEngine.java)
+```java
+// read private key
+RSAPrivateKey privateKey = ... see example above
+
+// create digest
+byte digestBytes[] = ... see example above
+ByteArrayInputStream digestByteStream = new ByteArrayInputStream(digestBytes);
+
+// sign digest
+@NonNull byte[] signatureBytes = new SignatureEngine().signSHA256RSA(privateKey, digestByteStream, null);
+writeToFile(signatureBytes, "path/to/signed-digest.bin");
 ```
-FIXME
+
+```java
+// verify
+RSAPublicKey publicKey = ... seeeExample above
+
+byte digestBytes[] = ... see DigestEngine example above
+InputStream digestByteStream = new ByteArrayInputStream(digestBytes);
+
+byte signatureBytes[] = readFromFile("path/to/signed-digest.bin");
+@NonNull boolean verified = new SignatureEngine().verifySHA256RSA(publicKey, digestByteStream, signatureBytes, null);
+
 ```
 
 
