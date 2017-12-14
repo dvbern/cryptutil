@@ -43,6 +43,14 @@ public class DigestEngine {
 		return digestWithAlgo(is, ALGO_SHA256, provider);
 	}
 
+	public @NonNull MessageDigest configureSHA256(@Nullable Provider provider) {
+		try {
+			return configureMessageDigest(ALGO_SHA256, provider);
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalArgumentException("No such algorithm: " + ALGO_SHA256, e);
+		}
+	}
+
 	public boolean supportsSHA512(@Nullable Provider provider) {
 		return supports(ALGO_SHA512, provider);
 	}
@@ -50,6 +58,14 @@ public class DigestEngine {
 	public @NonNull byte[] digestSHA512(@NonNull InputStream is, @Nullable Provider provider)
 			throws IOException, DigestFailedException {
 		return digestWithAlgo(is, ALGO_SHA512, provider);
+	}
+
+	public @NonNull MessageDigest configureSHA512(@Nullable Provider provider) {
+		try {
+			return configureMessageDigest(ALGO_SHA512, provider);
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalArgumentException("No such algorithm: " + ALGO_SHA512, e);
+		}
 	}
 
 	public boolean supports(@NonNull String algorithm, @Nullable Provider provider) {
@@ -89,7 +105,7 @@ public class DigestEngine {
 		return md.digest();
 	}
 
-	private @NonNull MessageDigest configureMessageDigest(@NonNull String algorithm, @Nullable Provider provider)
+	public @NonNull MessageDigest configureMessageDigest(@NonNull String algorithm, @Nullable Provider provider)
 			throws NoSuchAlgorithmException {
 		requireNonNull(algorithm);
 
