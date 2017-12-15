@@ -29,7 +29,18 @@ Currently implemented utilities:
 
 ### Create a cryptographically strong digest/checksum using [DigestEngine](src/main/java/ch/dvbern/lib/cryptutil/DigestEngine.java)
 ```java
-byte[] digestBytes = new DigestEngine().digestSHA256(is, null);
+byte digestBytes[] = new DigestEngine().digestSHA256(is, null);
+// openssl compatible: hex-encoding, lowercase
+String hexText = DatatypeConverter.printHexBinary(digestBytes).toLowerCase(Locale.US);
+```
+
+Or wrapping an InputStream:
+```java
+MessageDigest messageDigest = new DigestEngine().configureSHA256(null);
+DigestInputStream wrapped = new DigestInputStream(inputStream, messageDigest);
+// ... do your stream processing here
+
+byte digestBytes[] = wrapped..getMessageDigest().digest()
 // openssl compatible: hex-encoding, lowercase
 String hexText = DatatypeConverter.printHexBinary(digestBytes).toLowerCase(Locale.US);
 ```

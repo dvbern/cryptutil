@@ -101,7 +101,7 @@ class SignatureEngineTest {
 		byte reference[] = readFully(resourceURL("signing/signed-by-openssl/sha256.dsig"));
 
 		try (InputStream is = inputFile.openStream()) {
-			@NonNull boolean verified = new SignatureEngine().verifySHA256RSA(pub, is, reference, null);
+			@NonNull boolean verified = new SignatureEngine().verifySHA256RSA(reference, pub, is, null);
 			assertTrue(verified);
 		}
 	}
@@ -113,7 +113,7 @@ class SignatureEngineTest {
 		byte reference[] = readFully(resourceURL("signing/signed-by-openssl/sha512.dsig"));
 
 		try (InputStream is = inputFile.openStream()) {
-			@NonNull boolean verified = new SignatureEngine().verifySHA512RSA(pub, is, reference, null);
+			@NonNull boolean verified = new SignatureEngine().verifySHA512RSA(reference, pub, is, null);
 			assertTrue(verified);
 		}
 	}
