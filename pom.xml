@@ -26,7 +26,7 @@
 	<!-- HowTo: Release -->
 	<!-- checkout develop -->
 	<!-- mvn jgitflow:release-start jgitflow:release-start -->
-	<!-- build/wait for master build -->
+	<!-- trigger/wait for master build-->
 
 	<groupId>ch.dvbern.oss.cryptutil</groupId>
 	<artifactId>cryptutil</artifactId>
