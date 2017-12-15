@@ -96,34 +96,34 @@ public class SignatureEngine {
 	}
 
 	public @NonNull boolean verifySHA256RSA(
+			@NonNull byte referenceSignature[],
 			@NonNull PublicKey publicKey,
 			@NonNull InputStream is,
-			@NonNull byte referenceSignature[],
 			@Nullable Provider provider
 	) throws SignatureFailedException, IOException {
-		return verifyUsingAlgorithm(publicKey, ALGO_SHA256_WITH_RSA, is, referenceSignature, provider);
+		return verifyUsingAlgorithm(referenceSignature, publicKey, ALGO_SHA256_WITH_RSA, is, provider);
 	}
 
 	public @NonNull boolean verifySHA512RSA(
+			@NonNull byte referenceSignature[],
 			@NonNull PublicKey publicKey,
 			@NonNull InputStream is,
-			@NonNull byte referenceSignature[],
 			@Nullable Provider provider
 	) throws SignatureFailedException, IOException {
-		return verifyUsingAlgorithm(publicKey, ALGO_SHA512_WITH_RSA, is, referenceSignature, provider);
+		return verifyUsingAlgorithm(referenceSignature, publicKey, ALGO_SHA512_WITH_RSA, is, provider);
 	}
 
 	public @NonNull boolean verifyUsingAlgorithm(
+			@NonNull byte referenceSignature[],
 			@NonNull PublicKey publicKey,
 			@NonNull String algorithm,
 			@NonNull InputStream is,
-			@NonNull byte referenceSignature[],
 			@Nullable Provider provider
 	) throws SignatureFailedException, IOException {
+		requireNonNull(referenceSignature);
 		requireNonNull(publicKey);
 		requireNonNull(algorithm);
 		requireNonNull(is);
-		requireNonNull(referenceSignature);
 
 		try {
 			Signature privateSignature = configureSignature(algorithm, provider);
