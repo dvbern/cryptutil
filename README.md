@@ -97,7 +97,7 @@ openssl pkcs8 -topk8 -inform PEM -in mykey.pem -out mykey-pkcs8.pem
 
 Now generate a public key:
 ```
-openssl rsa -in meykey.pem -pubout > mykey.pub
+openssl rsa -in mykey.pem -pubout > mykey.pub
 ```
 
 ### Generate signed digests and verify them using [OpenSSL]
