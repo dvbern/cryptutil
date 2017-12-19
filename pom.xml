@@ -25,12 +25,12 @@
 
 	<!-- HowTo: Release -->
 	<!-- checkout develop -->
-	<!-- mvn jgitflow:release-start jgitflow:release-start -->
+	<!-- mvn jgitflow:release-start jgitflow:release-finish -->
 	<!-- trigger/wait for master build-->
 
 	<groupId>ch.dvbern.oss.cryptutil</groupId>
 	<artifactId>cryptutil</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 
 	<dependencies>
 		<!-- NO COMPILE/RUNTIME/PROVIDED DEPENDENCIES ALLOWED -->
