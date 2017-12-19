@@ -30,7 +30,7 @@
 
 	<groupId>ch.dvbern.oss.cryptutil</groupId>
 	<artifactId>cryptutil</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.4</version>
 
 	<dependencies>
 		<!-- NO COMPILE/RUNTIME/PROVIDED DEPENDENCIES ALLOWED -->
