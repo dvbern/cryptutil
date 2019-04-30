@@ -1,5 +1,6 @@
 package ch.dvbern.lib.cryptutil.readers;
 
+import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.security.interfaces.RSAPublicKey;
@@ -15,22 +16,24 @@ public class PKCS8PEMCertReaderTest {
 	@Test
 	public void test_readPublicKey() throws IOException {
 		final URL publicKeyURL = resourceURL("signing/testkey-nopass.pub");
-
-		final RSAPublicKey key = new PKCS8PEMCertReader(publicKeyURL.openStream()).readPublicKey();
+		final InputStream publicKey = publicKeyURL.openStream();
+		final RSAPublicKey key = new PKCS8PEMCertReader(publicKey).readPublicKey();
+		publicKey.close();
 
 		assertEquals("RSA", key.getAlgorithm());
 		assertEquals("X.509", key.getFormat());
 	}
 
 	@Test
-	public void test_readPublicKeyInvalidPassword() {
+	public void test_readPublicKeyInvalidPassword() throws IOException {
 		final URL publicKeyURL = resourceURL("signing/testkey-nopass.pem");
-
+		final InputStream publicKey = publicKeyURL.openStream();
 		final ReaderException thrown = assertThrows(
 				ReaderException.class,
-				() -> new PKCS8PEMCertReader(publicKeyURL.openStream()).readPublicKey());
+				() -> new PKCS8PEMCertReader(publicKey).readPublicKey());
 
 		assertEquals("Could not read PKCS8EncodedPEM", thrown.getMessage());
+		publicKey.close();
 	}
 }
 
