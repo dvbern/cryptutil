@@ -29,6 +29,9 @@ public class PKCS8PEMCertReader implements CertReader<RSAPublicKey> {
 	private final @NonNull PKCS8PEM pkcs8PEM = new PKCS8PEM();
 	private final @NonNull InputStream publicKey;
 
+	/**
+	 * @param publicKey ownership is not taken, caller needs to close the stream
+	 */
 	public PKCS8PEMCertReader(@NonNull InputStream publicKey) {
 		this.publicKey = requireNonNull(publicKey);
 	}

@@ -72,7 +72,9 @@ public final class PKCS8PEM {
 	/**
 	 * Very(!) simple and non-forgiving parsing method:
 	 * extracts the Base64 encoded payload of the PEM file
-	 * and then base64 decodes it to get the raw key
+	 * and then base64 decodes it to get the raw key.
+	 *
+	 * @param pkcs8pem ownership is not taken, caller needs to close the stream
 	 */
 	private @NonNull byte[] parseKeyFromPKCS8PEM(@NonNull InputStream pkcs8pem) {
 		requireNonNull(pkcs8pem);
@@ -89,6 +91,9 @@ public final class PKCS8PEM {
 
 	}
 
+	/**
+	 * @param privateKey ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull RSAPrivateKey readKeyFromPKCS8EncodedPEM(
 			@NonNull InputStream privateKey,
 			@Nullable String password
@@ -106,6 +111,9 @@ public final class PKCS8PEM {
 		return rsaPrivateKey;
 	}
 
+	/**
+	 * @param pkcs8pem ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull RSAPublicKey readCertFromPKCS8EncodedPEM(@NonNull InputStream pkcs8pem)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		@NonNull byte[] keyData = parseKeyFromPKCS8PEM(pkcs8pem);

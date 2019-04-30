@@ -38,6 +38,9 @@ public class DigestEngine {
 		return supports(ALGO_SHA256, provider);
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull byte[] digestSHA256(@NonNull InputStream is, @Nullable Provider provider)
 			throws IOException, DigestFailedException {
 		return digestWithAlgo(is, ALGO_SHA256, provider);
@@ -55,6 +58,9 @@ public class DigestEngine {
 		return supports(ALGO_SHA512, provider);
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull byte[] digestSHA512(@NonNull InputStream is, @Nullable Provider provider)
 			throws IOException, DigestFailedException {
 		return digestWithAlgo(is, ALGO_SHA512, provider);
@@ -77,6 +83,9 @@ public class DigestEngine {
 		}
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull byte[] digestWithAlgo(
 			@NonNull InputStream is,
 			@NonNull String algorithm,
@@ -96,7 +105,11 @@ public class DigestEngine {
 		return digest;
 	}
 
-	private @NonNull byte[] digestFully(@NonNull MessageDigest md, @NonNull InputStream is) throws IOException {
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
+	private @NonNull byte[] digestFully(@NonNull MessageDigest md, @NonNull InputStream is)
+	throws IOException {
 		requireNonNull(is);
 		requireNonNull(md);
 

@@ -31,6 +31,9 @@ public class PKCS8PEMKeyReader implements KeyReader<RSAPrivateKey> {
 	private final @NonNull InputStream privateKey;
 	private final @Nullable String keyPassword;
 
+	/**
+	 * @param privateKey ownership is not taken, caller needs to close the stream
+	 */
 	public PKCS8PEMKeyReader(@NonNull InputStream privateKey, @Nullable String keyPassword) {
 		this.privateKey = requireNonNull(privateKey);
 		this.keyPassword = keyPassword;

@@ -38,6 +38,7 @@ final class Util {
 	/**
 	 * read the inputstream chunk-wise and call the processor for each chunk
 	 *
+	 * @param is ownership is not taken, caller needs to close the stream
 	 * @param readChunkBufferBytes size of the read buffer for each read cycle.
 	 */
 	static <E extends Exception> void processFully(
