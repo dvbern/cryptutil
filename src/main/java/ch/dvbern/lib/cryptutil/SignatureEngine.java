@@ -42,6 +42,9 @@ public class SignatureEngine {
 		return supportsAlgorithm(ALGO_SHA256_WITH_RSA, provider);
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull byte[] signSHA256RSA(
 			@NonNull PrivateKey privateKey,
 			@NonNull InputStream is,
@@ -54,6 +57,9 @@ public class SignatureEngine {
 		return supportsAlgorithm(ALGO_SHA512_WITH_RSA, provider);
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull byte[] signSHA512RSA(
 			@NonNull PrivateKey privateKey,
 			@NonNull InputStream is,
@@ -73,6 +79,9 @@ public class SignatureEngine {
 		}
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull byte[] signUsingAlgorithm(
 			@NonNull PrivateKey privateKey,
 			@NonNull String algorithm,
@@ -95,8 +104,11 @@ public class SignatureEngine {
 		}
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull boolean verifySHA256RSA(
-			@NonNull byte referenceSignature[],
+			@NonNull byte[] referenceSignature,
 			@NonNull PublicKey publicKey,
 			@NonNull InputStream is,
 			@Nullable Provider provider
@@ -104,8 +116,11 @@ public class SignatureEngine {
 		return verifyUsingAlgorithm(referenceSignature, publicKey, ALGO_SHA256_WITH_RSA, is, provider);
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull boolean verifySHA512RSA(
-			@NonNull byte referenceSignature[],
+			@NonNull byte[] referenceSignature,
 			@NonNull PublicKey publicKey,
 			@NonNull InputStream is,
 			@Nullable Provider provider
@@ -113,8 +128,11 @@ public class SignatureEngine {
 		return verifyUsingAlgorithm(referenceSignature, publicKey, ALGO_SHA512_WITH_RSA, is, provider);
 	}
 
+	/**
+	 * @param is ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull boolean verifyUsingAlgorithm(
-			@NonNull byte referenceSignature[],
+			@NonNull byte[] referenceSignature,
 			@NonNull PublicKey publicKey,
 			@NonNull String algorithm,
 			@NonNull InputStream is,
@@ -143,8 +161,8 @@ public class SignatureEngine {
 		requireNonNull(algorithm);
 
 		return provider != null
-				? Signature.getInstance(algorithm, provider)
-				: Signature.getInstance(algorithm);
+			   ? Signature.getInstance(algorithm, provider)
+			   : Signature.getInstance(algorithm);
 	}
 
 }

@@ -19,8 +19,8 @@ package ch.dvbern.lib.cryptutil.readers;
 import java.io.InputStream;
 import java.security.interfaces.RSAPublicKey;
 
-import ch.dvbern.lib.cryptutil.fileformats.PKCS8PEM;
 import ch.dvbern.lib.cryptutil.annotations.NonNull;
+import ch.dvbern.lib.cryptutil.fileformats.PKCS8PEM;
 
 import static java.util.Objects.requireNonNull;
 
@@ -29,6 +29,9 @@ public class PKCS8PEMCertReader implements CertReader<RSAPublicKey> {
 	private final @NonNull PKCS8PEM pkcs8PEM = new PKCS8PEM();
 	private final @NonNull InputStream publicKey;
 
+	/**
+	 * @param publicKey ownership is not taken, caller needs to close the stream
+	 */
 	public PKCS8PEMCertReader(@NonNull InputStream publicKey) {
 		this.publicKey = requireNonNull(publicKey);
 	}

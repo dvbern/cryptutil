@@ -38,6 +38,7 @@ final class Util {
 	/**
 	 * read the inputstream chunk-wise and call the processor for each chunk
 	 *
+	 * @param is ownership is not taken, caller needs to close the stream
 	 * @param readChunkBufferBytes size of the read buffer for each read cycle.
 	 */
 	static <E extends Exception> void processFully(
@@ -50,7 +51,7 @@ final class Util {
 		assert readChunkBufferBytes > 0;
 
 		int byteOffset = 0;
-		byte buffer[] = new byte[readChunkBufferBytes];
+		byte[] buffer = new byte[readChunkBufferBytes];
 		for (int bytes = 0; bytes > -1; bytes = is.read(buffer)) {
 			byte[] tmp = buffer;
 			if (bytes != readChunkBufferBytes) {

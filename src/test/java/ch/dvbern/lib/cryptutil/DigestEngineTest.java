@@ -30,7 +30,8 @@ import static ch.dvbern.lib.cryptutil.TestingUtil.resourceURL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DigestEngineTest {
-	private static final String SHA512_SUM = "d2ef23b350507c87c09c27661ed5d95b173862c5ebe3fd385946d720f9fa8d7839885ea0c5462a09983ddee2ea2fa7bb03cc64cba51ac5f9977c577588edaed8";
+	private static final String SHA512_SUM =
+			"d2ef23b350507c87c09c27661ed5d95b173862c5ebe3fd385946d720f9fa8d7839885ea0c5462a09983ddee2ea2fa7bb03cc64cba51ac5f9977c577588edaed8";
 	private static final String SHA256_SUM = "61c150be017422affe371afa1d94a15f4a1f086f094eea42abbe8141f0053d94";
 	private final URL inputFile = resourceURL("test-input.jpg");
 

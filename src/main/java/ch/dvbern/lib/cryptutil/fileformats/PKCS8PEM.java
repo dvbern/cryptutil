@@ -72,7 +72,9 @@ public final class PKCS8PEM {
 	/**
 	 * Very(!) simple and non-forgiving parsing method:
 	 * extracts the Base64 encoded payload of the PEM file
-	 * and then base64 decodes it to get the raw key
+	 * and then base64 decodes it to get the raw key.
+	 *
+	 * @param pkcs8pem ownership is not taken, caller needs to close the stream
 	 */
 	private @NonNull byte[] parseKeyFromPKCS8PEM(@NonNull InputStream pkcs8pem) {
 		requireNonNull(pkcs8pem);
@@ -89,9 +91,12 @@ public final class PKCS8PEM {
 
 	}
 
+	/**
+	 * @param privateKey ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull RSAPrivateKey readKeyFromPKCS8EncodedPEM(
 			@NonNull InputStream privateKey,
-			@Nullable String password
+			@Nullable char[] password
 	) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException,
 			InvalidKeyException, InvalidAlgorithmParameterException {
 		requireNonNull(privateKey);
@@ -106,20 +111,23 @@ public final class PKCS8PEM {
 		return rsaPrivateKey;
 	}
 
+	/**
+	 * @param pkcs8pem ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull RSAPublicKey readCertFromPKCS8EncodedPEM(@NonNull InputStream pkcs8pem)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		@NonNull byte[] keyData = parseKeyFromPKCS8PEM(pkcs8pem);
 		return createFromX509EncodedRSACert(keyData);
 	}
 
-	private @NonNull RSAPublicKey createFromX509EncodedRSACert(@NonNull byte publicKey[])
+	private @NonNull RSAPublicKey createFromX509EncodedRSACert(@NonNull byte[] publicKey)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		KeyFactory kf = KeyFactory.getInstance(ALGO_RSA);
 		RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(new X509EncodedKeySpec(publicKey));
 		return pubKey;
 	}
 
-	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(@NonNull byte privateKey[])
+	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(@NonNull byte[] privateKey)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		KeyFactory kf = KeyFactory.getInstance(ALGO_RSA);
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey);
@@ -127,14 +135,15 @@ public final class PKCS8PEM {
 		return privKey;
 	}
 
-	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(@NonNull byte privateKey[], @NonNull String passwordString)
-			throws IOException, NoSuchAlgorithmException, NoSuchPaddingException,
+	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(
+			@NonNull byte[] privateKey,
+			@NonNull char[] password
+	) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException,
 			InvalidKeySpecException, InvalidKeyException, InvalidAlgorithmParameterException {
 		requireNonNull(privateKey);
-		requireNonNull(passwordString);
+		requireNonNull(password);
 
 		EncryptedPrivateKeyInfo ePKInfo = new EncryptedPrivateKeyInfo(privateKey);
-		char[] password = passwordString.toCharArray();
 		Cipher cipher = Cipher.getInstance(ePKInfo.getAlgName());
 		PBEKeySpec pbeKeySpec = new PBEKeySpec(password);
 		// Now create the Key from the PBEKeySpec

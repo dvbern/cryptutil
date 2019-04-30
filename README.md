@@ -51,7 +51,7 @@ String hexText = DatatypeConverter.printHexBinary(digestBytes).toLowerCase(Local
 RSAPublicKey publicKey = new PKCS8PEM().readCertFromPKCS8EncodedPEM(privateKeyURL.openStream());
 
 // read password protected private key
-RSAPrivateKey privateKey = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(privateKeyURL.openStream(), "asdffdsa");
+RSAPrivateKey privateKey = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(privateKeyURL.openStream(), "asdffdsa".toCharArray());
 ```
 
 ### Create a cryptographically strong file signature on a digest and verify it using [SignatureEngine](src/main/java/ch/dvbern/lib/cryptutil/SignatureEngine.java)
@@ -147,3 +147,17 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LIC
 [OpenSSL]: https://www.openssl.org/
 [Maven]: https://maven.apache.org/
 [Stackoverflow: openssl-command-line-to-verify-the-signature]: https://stackoverflow.com/questions/5140425/openssl-command-line-to-verify-the-signature
+
+
+# Significant changes
+## 2.0.0 #2: passwords passed in as strings
+Strings might get (explicitly or accidentally) [interned](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#intern%28%29) and thus last longer in memory than expected.
+
+This is clearly unwanted behavior.
+
+To remedy this, the API to change. Since having backwards compatibliity would expose unsafe behavior, 
+breaking the API (change passwords from String to char[]) is the only way.
+
+When upgrading from 1.x to 2.x we recommend to migrate your code to use char[] for passwords, too! 
+
+If you cannot do this: just use "yourPassword".toCharArray() when passing the password argument. 

@@ -27,6 +27,9 @@ import static java.util.Objects.requireNonNull;
 
 public final class X509PEM {
 
+	/**
+	 * @param certificate ownership is not taken, caller needs to close the stream
+	 */
 	public @NonNull X509Certificate read(@NonNull InputStream certificate) {
 		requireNonNull(certificate);
 

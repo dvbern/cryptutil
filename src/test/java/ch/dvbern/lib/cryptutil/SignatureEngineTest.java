@@ -21,8 +21,8 @@ import java.net.URL;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-import ch.dvbern.lib.cryptutil.fileformats.PKCS8PEM;
 import ch.dvbern.lib.cryptutil.annotations.NonNull;
+import ch.dvbern.lib.cryptutil.fileformats.PKCS8PEM;
 import org.junit.jupiter.api.Test;
 
 import static ch.dvbern.lib.cryptutil.TestingUtil.readFully;
@@ -62,7 +62,6 @@ class SignatureEngineTest {
 		}
 	}
 
-
 	@Test
 	void signSHA256RSA_withPassword() throws Exception {
 		givenRSAKeyPairWithPassword();
@@ -83,7 +82,6 @@ class SignatureEngineTest {
 		}
 	}
 
-
 	@Test
 	void signSHA512RSA_withPassword() throws Exception {
 		givenRSAKeyPairWithPassword();
@@ -98,7 +96,7 @@ class SignatureEngineTest {
 	void verifySHA256RSA() throws Exception {
 		givenRSAKeyPair();
 
-		byte reference[] = readFully(resourceURL("signing/signed-by-openssl/sha256.dsig"));
+		byte[] reference = readFully(resourceURL("signing/signed-by-openssl/sha256.dsig"));
 
 		try (InputStream is = inputFile.openStream()) {
 			@NonNull boolean verified = new SignatureEngine().verifySHA256RSA(reference, pub, is, null);
@@ -110,7 +108,7 @@ class SignatureEngineTest {
 	void verifySHA512RSA() throws Exception {
 		givenRSAKeyPair();
 
-		byte reference[] = readFully(resourceURL("signing/signed-by-openssl/sha512.dsig"));
+		byte[] reference = readFully(resourceURL("signing/signed-by-openssl/sha512.dsig"));
 
 		try (InputStream is = inputFile.openStream()) {
 			@NonNull boolean verified = new SignatureEngine().verifySHA512RSA(reference, pub, is, null);
@@ -118,7 +116,7 @@ class SignatureEngineTest {
 		}
 	}
 
-	public void assertSignatureEqualsReference(@NonNull byte signatureBytes[], @NonNull String referenceDsigpath) {
+	public void assertSignatureEqualsReference(@NonNull byte[] signatureBytes, @NonNull String referenceDsigpath) {
 		requireNonNull(signatureBytes);
 		requireNonNull(referenceDsigpath);
 
@@ -136,7 +134,7 @@ class SignatureEngineTest {
 
 	void givenRSAKeyPairWithPassword() throws Exception {
 		pk = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(
-				resourceStream("signing/testkey-passasdffdsa-pkcs8.pem"), "asdffdsa");
+				resourceStream("signing/testkey-passasdffdsa-pkcs8.pem"), "asdffdsa".toCharArray());
 		pub = new PKCS8PEM().readCertFromPKCS8EncodedPEM(
 				resourceStream("signing/testkey-passasdffdsa.pub"));
 	}
