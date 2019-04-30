@@ -127,7 +127,9 @@ public final class PKCS8PEM {
 		return privKey;
 	}
 
-	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(@NonNull byte privateKey[], @NonNull String passwordString)
+	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(
+			@NonNull byte privateKey[],
+			@NonNull String passwordString)
 			throws IOException, NoSuchAlgorithmException, NoSuchPaddingException,
 			InvalidKeySpecException, InvalidKeyException, InvalidAlgorithmParameterException {
 		requireNonNull(privateKey);

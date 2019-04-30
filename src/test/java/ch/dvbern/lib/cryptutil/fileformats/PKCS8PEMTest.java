@@ -48,5 +48,4 @@ class PKCS8PEMTest {
 		assertNotNull(pk);
 	}
 
-
 }

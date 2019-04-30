@@ -41,14 +41,12 @@ public final class TestingUtil {
 		return requireNonNull(stream);
 	}
 
-
-
 	public static @NonNull byte[] readFully(@NonNull URL url) {
 		try (InputStream is = new BufferedInputStream(url.openStream())) {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			processFully(is, 4096, baos::write);
 			return baos.toByteArray();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new IllegalStateException("Could not read: " + url, e);
 		}
 	}

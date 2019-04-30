@@ -19,8 +19,8 @@ package ch.dvbern.lib.cryptutil.readers;
 import java.io.InputStream;
 import java.security.interfaces.RSAPublicKey;
 
-import ch.dvbern.lib.cryptutil.fileformats.PKCS8PEM;
 import ch.dvbern.lib.cryptutil.annotations.NonNull;
+import ch.dvbern.lib.cryptutil.fileformats.PKCS8PEM;
 
 import static java.util.Objects.requireNonNull;
 

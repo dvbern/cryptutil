@@ -25,6 +25,6 @@ import java.lang.annotation.Target;
  * Detailed semantics, see <a href="https://checkerframework.org/manual/#nullness-checker>Checker Framework</a>
  */
 @Target({ ElementType.FIELD, ElementType.LOCAL_VARIABLE, ElementType.METHOD, ElementType.TYPE,
-		ElementType.TYPE_PARAMETER, ElementType.TYPE_USE})
+		ElementType.TYPE_PARAMETER, ElementType.TYPE_USE })
 public @interface Nullable {
 }

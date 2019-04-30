@@ -22,7 +22,7 @@ import ch.dvbern.lib.cryptutil.annotations.NonNull;
 
 import static java.util.Objects.requireNonNull;
 
-public class IdentityKeyReader<T extends PrivateKey> implements KeyReader<T>  {
+public class IdentityKeyReader<T extends PrivateKey> implements KeyReader<T> {
 
 	private final @NonNull T key;
 
