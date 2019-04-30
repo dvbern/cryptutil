@@ -155,9 +155,9 @@ Strings might get (explicitly or accidentally) [interned](https://docs.oracle.co
 
 This is clearly unwanted behavior.
 
-To remedy this, the API to change. Since having backwards compatibliity would expose unsafe behavior, 
-breaking the API (change passwords from String to char[]) is the only way.
+Since having backwards compatibility would expose unsafe behavior, 
+breaking the cryptutil API (change passwords from String to char[]) is the only way.
 
-When upgrading from 1.x to 2.x we recommend to migrate your code to use char[] for passwords, too! 
+When upgrading from 1.x to 2.x of cryptutil, we recommend to migrate your code to use char[] for passwords, too! 
 
 If you cannot do this: just use "yourPassword".toCharArray() when passing the password argument. 
