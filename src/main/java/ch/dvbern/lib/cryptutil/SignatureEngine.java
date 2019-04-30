@@ -108,7 +108,7 @@ public class SignatureEngine {
 	 * @param is ownership is not taken, caller needs to close the stream
 	 */
 	public @NonNull boolean verifySHA256RSA(
-			@NonNull byte referenceSignature[],
+			@NonNull byte[] referenceSignature,
 			@NonNull PublicKey publicKey,
 			@NonNull InputStream is,
 			@Nullable Provider provider
@@ -120,7 +120,7 @@ public class SignatureEngine {
 	 * @param is ownership is not taken, caller needs to close the stream
 	 */
 	public @NonNull boolean verifySHA512RSA(
-			@NonNull byte referenceSignature[],
+			@NonNull byte[] referenceSignature,
 			@NonNull PublicKey publicKey,
 			@NonNull InputStream is,
 			@Nullable Provider provider
@@ -132,7 +132,7 @@ public class SignatureEngine {
 	 * @param is ownership is not taken, caller needs to close the stream
 	 */
 	public @NonNull boolean verifyUsingAlgorithm(
-			@NonNull byte referenceSignature[],
+			@NonNull byte[] referenceSignature,
 			@NonNull PublicKey publicKey,
 			@NonNull String algorithm,
 			@NonNull InputStream is,
@@ -161,8 +161,8 @@ public class SignatureEngine {
 		requireNonNull(algorithm);
 
 		return provider != null
-				? Signature.getInstance(algorithm, provider)
-				: Signature.getInstance(algorithm);
+			   ? Signature.getInstance(algorithm, provider)
+			   : Signature.getInstance(algorithm);
 	}
 
 }

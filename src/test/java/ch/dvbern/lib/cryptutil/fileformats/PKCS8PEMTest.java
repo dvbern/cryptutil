@@ -44,7 +44,9 @@ class PKCS8PEMTest {
 	@Test
 	void getPrivateKeyFromPKCS8EncodedPEM_withPassword() throws Exception {
 		URL privateKeyURL = resourceURL("signing/testkey-passasdffdsa-pkcs8.pem");
-		@NonNull RSAPrivateKey pk = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(privateKeyURL.openStream(), "asdffdsa");
+		@NonNull RSAPrivateKey pk = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(
+				privateKeyURL.openStream(),
+				"asdffdsa".toCharArray());
 		assertNotNull(pk);
 	}
 

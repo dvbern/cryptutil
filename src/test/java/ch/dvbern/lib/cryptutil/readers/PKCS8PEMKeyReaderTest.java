@@ -28,7 +28,7 @@ public class PKCS8PEMKeyReaderTest {
 
 		final ReaderException thrown = assertThrows(
 				ReaderException.class,
-				() -> new PKCS8PEMKeyReader(privateKeyURL.openStream(), "foo").readPrivateKey());
+				() -> new PKCS8PEMKeyReader(privateKeyURL.openStream(), "foo".toCharArray()).readPrivateKey());
 
 		assertEquals("Could not read PKCS8EncodedPEM", thrown.getMessage());
 	}

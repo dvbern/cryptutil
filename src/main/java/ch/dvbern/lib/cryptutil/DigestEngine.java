@@ -108,8 +108,7 @@ public class DigestEngine {
 	/**
 	 * @param is ownership is not taken, caller needs to close the stream
 	 */
-	private @NonNull byte[] digestFully(@NonNull MessageDigest md, @NonNull InputStream is)
-	throws IOException {
+	private @NonNull byte[] digestFully(@NonNull MessageDigest md, @NonNull InputStream is) throws IOException {
 		requireNonNull(is);
 		requireNonNull(md);
 
@@ -123,8 +122,8 @@ public class DigestEngine {
 		requireNonNull(algorithm);
 
 		return provider != null
-				? MessageDigest.getInstance(algorithm, provider)
-				: MessageDigest.getInstance(algorithm);
+			   ? MessageDigest.getInstance(algorithm, provider)
+			   : MessageDigest.getInstance(algorithm);
 	}
 
 }

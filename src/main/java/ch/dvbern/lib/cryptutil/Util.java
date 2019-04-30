@@ -51,7 +51,7 @@ final class Util {
 		assert readChunkBufferBytes > 0;
 
 		int byteOffset = 0;
-		byte buffer[] = new byte[readChunkBufferBytes];
+		byte[] buffer = new byte[readChunkBufferBytes];
 		for (int bytes = 0; bytes > -1; bytes = is.read(buffer)) {
 			byte[] tmp = buffer;
 			if (bytes != readChunkBufferBytes) {

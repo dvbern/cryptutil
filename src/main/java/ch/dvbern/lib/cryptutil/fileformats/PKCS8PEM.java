@@ -96,7 +96,7 @@ public final class PKCS8PEM {
 	 */
 	public @NonNull RSAPrivateKey readKeyFromPKCS8EncodedPEM(
 			@NonNull InputStream privateKey,
-			@Nullable String password
+			@Nullable char[] password
 	) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException,
 			InvalidKeyException, InvalidAlgorithmParameterException {
 		requireNonNull(privateKey);
@@ -120,14 +120,14 @@ public final class PKCS8PEM {
 		return createFromX509EncodedRSACert(keyData);
 	}
 
-	private @NonNull RSAPublicKey createFromX509EncodedRSACert(@NonNull byte publicKey[])
+	private @NonNull RSAPublicKey createFromX509EncodedRSACert(@NonNull byte[] publicKey)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		KeyFactory kf = KeyFactory.getInstance(ALGO_RSA);
 		RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(new X509EncodedKeySpec(publicKey));
 		return pubKey;
 	}
 
-	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(@NonNull byte privateKey[])
+	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(@NonNull byte[] privateKey)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		KeyFactory kf = KeyFactory.getInstance(ALGO_RSA);
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey);
@@ -136,15 +136,14 @@ public final class PKCS8PEM {
 	}
 
 	private @NonNull RSAPrivateKey createFromPKCS8EndocdedRSAKey(
-			@NonNull byte privateKey[],
-			@NonNull String passwordString)
-			throws IOException, NoSuchAlgorithmException, NoSuchPaddingException,
+			@NonNull byte[] privateKey,
+			@NonNull char[] password
+	) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException,
 			InvalidKeySpecException, InvalidKeyException, InvalidAlgorithmParameterException {
 		requireNonNull(privateKey);
-		requireNonNull(passwordString);
+		requireNonNull(password);
 
 		EncryptedPrivateKeyInfo ePKInfo = new EncryptedPrivateKeyInfo(privateKey);
-		char[] password = passwordString.toCharArray();
 		Cipher cipher = Cipher.getInstance(ePKInfo.getAlgName());
 		PBEKeySpec pbeKeySpec = new PBEKeySpec(password);
 		// Now create the Key from the PBEKeySpec
