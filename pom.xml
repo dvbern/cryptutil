@@ -62,7 +62,15 @@
 
 	<build>
 		<plugins>
-
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerArgs>
+						<arg>-Xlint:all</arg>
+						<arg>-Werror</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.1</version>
