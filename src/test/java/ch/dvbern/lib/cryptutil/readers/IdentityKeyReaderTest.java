@@ -15,14 +15,14 @@ public class IdentityKeyReaderTest {
 
 	@Test
 	public void test_readPrivateKey() throws IOException {
-		final URL privateKeyURL = resourceURL("signing/testkey-nopass-pkcs8.pem");
-		final InputStream privateKey = privateKeyURL.openStream();
-		final RSAPrivateKey rsaKey = new PKCS8PEMKeyReader(privateKey, null).readPrivateKey();
-		privateKey.close();
+		URL privateKeyURL = resourceURL("signing/testkey-nopass-pkcs8.pem");
+		try(InputStream privateKey = privateKeyURL.openStream()) {
+			RSAPrivateKey rsaKey = new PKCS8PEMKeyReader(privateKey, null).readPrivateKey();
 
-		final PrivateKey key = new IdentityKeyReader(rsaKey).readPrivateKey();
-		assertEquals("RSA", key.getAlgorithm());
-		assertEquals("PKCS#8", key.getFormat());
+			PrivateKey key = new IdentityKeyReader<>(rsaKey).readPrivateKey();
+			assertEquals("RSA", key.getAlgorithm());
+			assertEquals("PKCS#8", key.getFormat());
+		}
 	}
 }
 

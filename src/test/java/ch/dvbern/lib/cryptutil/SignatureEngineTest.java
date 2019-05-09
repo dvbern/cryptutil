@@ -126,16 +126,18 @@ class SignatureEngineTest {
 	}
 
 	void givenRSAKeyPair() throws Exception {
-		pk = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(
-				resourceStream("signing/testkey-nopass-pkcs8.pem"), null);
-		pub = new PKCS8PEM().readCertFromPKCS8EncodedPEM(
-				resourceStream("signing/testkey-nopass.pub"));
+		try (InputStream privateKey = resourceStream("signing/testkey-nopass-pkcs8.pem");
+				InputStream pkcs8pem = resourceStream("signing/testkey-nopass.pub")) {
+			pk = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(privateKey, null);
+			pub = new PKCS8PEM().readCertFromPKCS8EncodedPEM(pkcs8pem);
+		}
 	}
 
 	void givenRSAKeyPairWithPassword() throws Exception {
-		pk = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(
-				resourceStream("signing/testkey-passasdffdsa-pkcs8.pem"), "asdffdsa".toCharArray());
-		pub = new PKCS8PEM().readCertFromPKCS8EncodedPEM(
-				resourceStream("signing/testkey-passasdffdsa.pub"));
+		try (InputStream privateKey = resourceStream("signing/testkey-passasdffdsa-pkcs8.pem");
+				InputStream pkcs8pem = resourceStream("signing/testkey-passasdffdsa.pub")) {
+			pk = new PKCS8PEM().readKeyFromPKCS8EncodedPEM(privateKey, "asdffdsa".toCharArray());
+			pub = new PKCS8PEM().readCertFromPKCS8EncodedPEM(pkcs8pem);
+		}
 	}
 }
