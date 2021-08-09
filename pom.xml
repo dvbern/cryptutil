@@ -20,7 +20,7 @@
 	<parent>
 		<groupId>ch.dvbern.oss.maven</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0.4</version>
+		<version>3.0.5</version>
 	</parent>
 
 	<!-- HowTo: Release -->
@@ -30,7 +30,19 @@
 
 	<groupId>ch.dvbern.oss.cryptutil</groupId>
 	<artifactId>cryptutil</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.7.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<!-- NO COMPILE/RUNTIME/PROVIDED DEPENDENCIES ALLOWED -->
@@ -39,31 +51,68 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.0.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerArgs>
+						<arg>-Xlint:all</arg>
+						<arg>-Werror</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19</version>
+				<version>2.22.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.4.7</version>
 				<dependencies>
 					<dependency>
-						<groupId>org.junit.platform</groupId>
-						<artifactId>junit-platform-surefire-provider</artifactId>
-						<version>1.0.2</version>
-					</dependency>
-					<dependency>
-						<groupId>org.junit.jupiter</groupId>
-						<artifactId>junit-jupiter-engine</artifactId>
-						<version>5.0.2</version>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-junit5-plugin</artifactId>
+						<version>0.14</version>
 					</dependency>
 				</dependencies>
+				<executions>
+					<execution>
+						<id>pitest</id>
+						<goals>
+							<goal>mutationCoverage</goal>
+						</goals>
+						<phase>post-integration-test</phase>
+					</execution>
+				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
+
+	<scm>
+        <connection>scm:git:git://github.com/dvbern/cryptutil.git</connection>
+        <developerConnection>scm:git:ssh://github.com:dvbern/cryptutil.git</developerConnection>
+        <url>https://github.com/dvbern/cryptutil</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>DV Bern AG developers</name>
+            <email>hallo@dvbern.ch</email>
+            <organization>DV Bern AG</organization>
+            <organizationUrl>https://www.dvbern.ch</organizationUrl>
+        </developer>
+    </developers>
 
 </project>

@@ -1,6 +1,7 @@
 package ch.dvbern.lib.cryptutil.readers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
@@ -14,13 +15,15 @@ public class IdentityCertReaderTest {
 
 	@Test
 	public void test_readPublicKey() throws IOException {
-		final URL publicKeyURL = resourceURL("signing/testkey-nopass.pub");
-		final RSAPublicKey rsaKey = new PKCS8PEMCertReader(publicKeyURL.openStream()).readPublicKey();
+		URL publicKeyURL = resourceURL("signing/testkey-nopass.pub");
+		try (InputStream publicKey = publicKeyURL.openStream()) {
+			RSAPublicKey rsaKey = new PKCS8PEMCertReader(publicKey).readPublicKey();
 
-		final PublicKey key = new IdentityCertReader(rsaKey).readPublicKey();
+			PublicKey key = new IdentityCertReader<>(rsaKey).readPublicKey();
+			assertEquals("RSA", key.getAlgorithm());
+			assertEquals("X.509", key.getFormat());
 
-		assertEquals("RSA", key.getAlgorithm());
-		assertEquals("X.509", key.getFormat());
+		}
 	}
 }
 

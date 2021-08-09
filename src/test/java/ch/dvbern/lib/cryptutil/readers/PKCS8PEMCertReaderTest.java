@@ -1,6 +1,7 @@
 package ch.dvbern.lib.cryptutil.readers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.security.interfaces.RSAPublicKey;
 
@@ -14,23 +15,25 @@ public class PKCS8PEMCertReaderTest {
 
 	@Test
 	public void test_readPublicKey() throws IOException {
-		final URL publicKeyURL = resourceURL("signing/testkey-nopass.pub");
+		URL publicKeyURL = resourceURL("signing/testkey-nopass.pub");
+		try (InputStream publicKey = publicKeyURL.openStream()) {
+			RSAPublicKey key = new PKCS8PEMCertReader(publicKey).readPublicKey();
 
-		final RSAPublicKey key = new PKCS8PEMCertReader(publicKeyURL.openStream()).readPublicKey();
-
-		assertEquals("RSA", key.getAlgorithm());
-		assertEquals("X.509", key.getFormat());
+			assertEquals("RSA", key.getAlgorithm());
+			assertEquals("X.509", key.getFormat());
+		}
 	}
 
 	@Test
-	public void test_readPublicKeyInvalidPassword() {
-		final URL publicKeyURL = resourceURL("signing/testkey-nopass.pem");
+	public void test_readPublicKeyInvalidPassword() throws IOException {
+		URL publicKeyURL = resourceURL("signing/testkey-nopass.pem");
+		try (InputStream publicKey = publicKeyURL.openStream()) {
+			ReaderException thrown = assertThrows(
+					ReaderException.class,
+					() -> new PKCS8PEMCertReader(publicKey).readPublicKey());
 
-		final ReaderException thrown = assertThrows(
-				ReaderException.class,
-				() -> new PKCS8PEMCertReader(publicKeyURL.openStream()).readPublicKey());
-
-		assertEquals("Could not read PKCS8EncodedPEM", thrown.getMessage());
+			assertEquals("Could not read PKCS8EncodedPEM", thrown.getMessage());
+		}
 	}
 }
 
