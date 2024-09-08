@@ -21,10 +21,11 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
 
-import javax.xml.bind.DatatypeConverter;
+import org.junit.jupiter.api.Test;
 
 import ch.dvbern.lib.cryptutil.annotations.NonNull;
-import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 import static ch.dvbern.lib.cryptutil.TestingUtil.resourceURL;
 import static org.junit.jupiter.api.Assertions.assertEquals;

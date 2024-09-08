@@ -18,7 +18,6 @@ public class PKCS8PEMKeyReaderTest {
 		URL privateKeyURL = resourceURL("signing/testkey-nopass-pkcs8.pem");
 		try (InputStream privateKey = privateKeyURL.openStream()) {
 			RSAPrivateKey key = new PKCS8PEMKeyReader(privateKey, null).readPrivateKey();
-			privateKey.close();
 
 			assertEquals("RSA", key.getAlgorithm());
 			assertEquals("PKCS#8", key.getFormat());
@@ -31,7 +30,8 @@ public class PKCS8PEMKeyReaderTest {
 		try (InputStream privateKey = privateKeyURL.openStream()) {
 			ReaderException thrown = assertThrows(
 					ReaderException.class,
-					() -> new PKCS8PEMKeyReader(privateKey, "foo".toCharArray()).readPrivateKey());
+					() -> new PKCS8PEMKeyReader(privateKey, "foo".toCharArray()).readPrivateKey()
+			);
 
 			assertEquals("Could not read PKCS8EncodedPEM", thrown.getMessage());
 		}
