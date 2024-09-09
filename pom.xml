@@ -14,14 +14,21 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>ch.dvbern.oss.maven</groupId>
-		<artifactId>parent</artifactId>
-		<version>3.0.5</version>
+		<artifactId>parent-minimal</artifactId>
+		<version>3.0.0</version>
 	</parent>
+
+	<properties>
+		<maven-compiler-plugin.source>21</maven-compiler-plugin.source>
+		<maven-compiler-plugin.target>21</maven-compiler-plugin.target>
+	</properties>
 
 	<!-- HowTo: Release -->
 	<!-- checkout develop -->
@@ -47,7 +54,12 @@
 	<dependencies>
 		<!-- NO COMPILE/RUNTIME/PROVIDED DEPENDENCIES ALLOWED -->
 		<!-- SINCE THIS LIB IS INTENDED TO BE USED IN VERY LIMITED ENVIRONMENTS -->
-
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -72,18 +84,14 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
-			</plugin>
-			<plugin>
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
-				<version>1.4.7</version>
+				<version>1.16.3</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.pitest</groupId>
 						<artifactId>pitest-junit5-plugin</artifactId>
-						<version>0.14</version>
+						<version>1.2.1</version>
 					</dependency>
 				</dependencies>
 				<executions>
@@ -96,23 +104,22 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 
 	<scm>
-        <connection>scm:git:git://github.com/dvbern/cryptutil.git</connection>
-        <developerConnection>scm:git:ssh://github.com:dvbern/cryptutil.git</developerConnection>
-        <url>https://github.com/dvbern/cryptutil</url>
-    </scm>
+		<connection>scm:git:git://github.com/dvbern/cryptutil.git</connection>
+		<developerConnection>scm:git:ssh://github.com:dvbern/cryptutil.git</developerConnection>
+		<url>https://github.com/dvbern/cryptutil</url>
+	</scm>
 
-    <developers>
-        <developer>
-            <name>DV Bern AG developers</name>
-            <email>hallo@dvbern.ch</email>
-            <organization>DV Bern AG</organization>
-            <organizationUrl>https://www.dvbern.ch</organizationUrl>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<name>DV Bern AG developers</name>
+			<email>hallo@dvbern.ch</email>
+			<organization>DV Bern AG</organization>
+			<organizationUrl>https://www.dvbern.ch</organizationUrl>
+		</developer>
+	</developers>
 
 </project>
