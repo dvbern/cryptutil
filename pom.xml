@@ -32,7 +32,7 @@
 
 	<!-- HowTo: Release -->
 	<!-- checkout develop -->
-	<!-- mvn jgitflow:release-start jgitflow:release-finish -->
+	<!-- ./mvnw jgitflow:release-start jgitflow:release-finish -->
 	<!-- trigger/wait for master build-->
 
 	<groupId>ch.dvbern.oss.cryptutil</groupId>
